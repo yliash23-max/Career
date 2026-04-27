@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кар'єрна Стратегія</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Geologica:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --o: #FF5500;
+  --o2: #FF7733;
+  --o3: #FFE4D6;
+  --w: #FFFFFF;
+  --d: #141414;
+  --g: #767676;
+  --g2: #EFEFED;
+  --g3: #2A2A2A;
+}
+
+body {
+  font-family: 'Geologica', sans-serif;
+  background: #EDECEA;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.hd {
+  background: var(--d);
+  padding: 28px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.hd::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 220px;
+  background: var(--o);
+  clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.hd-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--w);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  position: relative; z-index: 1;
+}
+.hd-title small {
+  display: block;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--g);
+  margin-bottom: 5px;
+}
+.hd-badge {
+  position: relative; z-index: 1;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--w);
+  line-height: 1;
+  text-align: right;
+}
+.hd-badge span {
+  display: block;
+  font-size: 8px;
+  font-weight: 400;
+  font-family: 'Geologica', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-top: 3px;
+}
+
+/* ── TABS ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  padding: 24px 44px 0;
+}
+.tab {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+  border-radius: 0;
+}
+.tab-active { background: var(--o); color: var(--w); }
+.tab-inactive { background: var(--w); color: var(--g); }
+.tab-inactive:hover { color: var(--o); }
+
+/* ── DECK MODE ── */
+#mode-deck { padding: 36px 44px 60px; display: flex; gap: 48px; align-items: flex-start; }
+
+/* Stack visual */
+.stack-wrap { position: relative; width: 192px; flex-shrink: 0; }
+.stack {
+  position: relative;
+  width: 192px;
+  height: 272px;
+  cursor: pointer;
+}
+.stack-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: var(--o);
+  transition: transform .2s;
+}
+.stack-layer:nth-child(1) { transform: rotate(7deg); opacity: .18; }
+.stack-layer:nth-child(2) { transform: rotate(3.5deg); opacity: .32; }
+.stack-layer:nth-child(3) { transform: rotate(0deg); }
+.stack:hover .stack-layer:nth-child(1) { transform: rotate(9deg) translateY(-3px); }
+.stack:hover .stack-layer:nth-child(2) { transform: rotate(5deg) translateY(-2px); }
+.stack:hover .stack-layer:nth-child(3) { transform: translateY(-5px); }
+
+.stack-front {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: var(--o);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+}
+/* Geometric pattern on back */
+.stack-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 22px, rgba(255,255,255,.06) 22px, rgba(255,255,255,.06) 23px),
+    repeating-linear-gradient(90deg, transparent, transparent 22px, rgba(255,255,255,.06) 22px, rgba(255,255,255,.06) 23px);
+}
+.stack-logo {
+  font-family: 'Unbounded', sans-serif;
+  color: var(--w);
+  text-align: center;
+  position: relative; z-index: 1;
+}
+.stack-logo b { display: block; font-size: 36px; font-weight: 900; line-height: 1; }
+.stack-logo small { font-size: 7px; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; opacity: .7; margin-top: 6px; display: block; }
+.stack-diamond {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,.15);
+  transform: rotate(45deg);
+  border-radius: 6px;
+  position: relative; z-index: 1;
+}
+.stack-cta {
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+  font-family: 'Geologica', sans-serif;
+  position: relative; z-index: 1;
+}
+.stack-count {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--d);
+  color: var(--w);
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: .5px;
+}
+.stack-hint { margin-top: 30px; font-size: 10px; color: var(--g); letter-spacing: .5px; text-align: center; }
+
+/* ── CARD ── */
+.card-area { flex: 1; }
+.card-label {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--g);
+  margin-bottom: 20px;
+}
+.card-wrap {
+  width: 100%;
+  max-width: 360px;
+}
+
+.card {
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  padding: 28px 28px 24px;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  animation: reveal .45s cubic-bezier(.175,.885,.32,1.275);
+  box-shadow: 0 24px 64px rgba(0,0,0,.14);
+}
+@keyframes reveal {
+  from { opacity:0; transform: translateY(16px) rotate(-2deg) scale(.96); }
+  to   { opacity:1; transform: translateY(0) rotate(0) scale(1); }
+}
+
+/* Backgrounds */
+.c-orange { background: var(--o); }
+.c-white  { background: var(--w); }
+.c-dark   { background: var(--d); }
+.c-stone  { background: #F0EDE8; }
+
+/* Geometric accent shapes on card */
+.card-shape {
+  position: absolute;
+  pointer-events: none;
+}
+.shape-circle {
+  border-radius: 50%;
+}
+.shape-rect {
+  border-radius: 4px;
+}
+
+/* Card content */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+.card-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.card-cat {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+/* Graphic element per card — replaced emoji */
+.card-graphic {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gfx-bar {
+  height: 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.gfx-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.gfx-square {
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.gfx-diamond {
+  width: 10px; height: 10px;
+  border-radius: 1px;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+.gfx-line {
+  height: 2px;
+  flex: 1;
+  border-radius: 1px;
+}
+.gfx-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.card-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -.5px;
+  margin-bottom: 6px;
+}
+.card-subtitle {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: .55;
+}
+.card-divider {
+  height: 1px;
+  margin-bottom: 16px;
+  opacity: .15;
+}
+.card-body {
+  font-size: 13px;
+  line-height: 1.75;
+  font-weight: 400;
+  flex: 1;
+}
+.card-q-block {
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.card-q-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  opacity: .6;
+}
+.card-question {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.card-brand {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: .35;
+}
+.card-progress {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  opacity: .35;
+}
+
+/* Color tokens per variant */
+.c-orange .card-num  { color: rgba(255,255,255,.5); }
+.c-orange .card-cat  { background: rgba(255,255,255,.2); color: white; }
+.c-orange .card-title { color: white; }
+.c-orange .card-subtitle { color: white; }
+.c-orange .card-divider { background: white; }
+.c-orange .card-body  { color: rgba(255,255,255,.88); }
+.c-orange .card-q-block { background: rgba(255,255,255,.15); }
+.c-orange .card-q-label { color: white; }
+.c-orange .card-question { color: white; }
+.c-orange .card-brand { color: white; }
+.c-orange .card-progress { color: white; }
+.c-orange .gfx-num   { color: rgba(255,255,255,.18); }
+
+.c-white .card-num   { color: var(--g); }
+.c-white .card-cat   { background: var(--o3); color: var(--o); }
+.c-white .card-title  { color: var(--d); }
+.c-white .card-subtitle { color: var(--d); }
+.c-white .card-divider { background: var(--d); }
+.c-white .card-body   { color: #444; }
+.c-white .card-q-block { background: var(--o3); }
+.c-white .card-q-label { color: var(--o); }
+.c-white .card-question { color: var(--d); }
+.c-white .card-brand  { color: var(--d); }
+.c-white .card-progress { color: var(--g); }
+.c-white .gfx-num    { color: rgba(0,0,0,.07); }
+
+.c-dark .card-num    { color: #444; }
+.c-dark .card-cat    { background: #2A2A2A; color: #888; }
+.c-dark .card-title   { color: white; }
+.c-dark .card-subtitle { color: white; }
+.c-dark .card-divider { background: white; }
+.c-dark .card-body    { color: #BBBBBB; }
+.c-dark .card-q-block { background: #222; }
+.c-dark .card-q-label { color: var(--o); }
+.c-dark .card-question { color: white; }
+.c-dark .card-brand   { color: white; }
+.c-dark .card-progress { color: #555; }
+.c-dark .gfx-num     { color: rgba(255,255,255,.06); }
+
+.c-stone .card-num   { color: var(--g); }
+.c-stone .card-cat   { background: var(--o); color: white; }
+.c-stone .card-title  { color: var(--d); }
+.c-stone .card-subtitle { color: var(--d); }
+.c-stone .card-divider { background: var(--d); }
+.c-stone .card-body   { color: #3A3530; }
+.c-stone .card-q-block { background: rgba(255,85,0,.12); }
+.c-stone .card-q-label { color: var(--o); }
+.c-stone .card-question { color: var(--d); }
+.c-stone .card-brand  { color: var(--d); }
+.c-stone .card-progress { color: var(--g); }
+.c-stone .gfx-num    { color: rgba(0,0,0,.06); }
+
+/* Controls */
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+.btn {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 13px 22px;
+  border: none;
+  cursor: pointer;
+  transition: all .18s;
+  border-radius: 8px;
+}
+.btn-p { background: var(--o); color: white; box-shadow: 0 4px 18px rgba(255,85,0,.35); }
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,85,0,.45); }
+.btn-s { background: white; color: var(--d); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.btn-s:hover { transform: translateY(-2px); }
+.btn-o { background: transparent; color: var(--g); border: 1.5px solid #ccc; }
+.btn-o:hover { border-color: var(--o); color: var(--o); }
+
+/* ── GRID MODE ── */
+#mode-grid { display: none; padding: 32px 44px 60px; }
+.grid-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.gf {
+  font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 7px 16px; border-radius: 6px; border: 1.5px solid transparent;
+  cursor: pointer; transition: all .18s; background: white; color: var(--g);
+}
+.gf.on { background: var(--o); color: white; }
+.gf:not(.on):hover { border-color: var(--o); color: var(--o); }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+}
+.mini {
+  border-radius: 12px;
+  padding: 16px 14px 14px;
+  cursor: pointer;
+  transition: all .2s;
+  aspect-ratio: 2/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.mini:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 14px 36px rgba(0,0,0,.14); }
+.mini-o { background: var(--o); box-shadow: 0 2px 12px rgba(255,85,0,.2); }
+.mini-w { background: white; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.mini-d { background: var(--d); box-shadow: 0 2px 12px rgba(0,0,0,.2); }
+.mini-s { background: #F0EDE8; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.mini-n { font-family: 'Unbounded', sans-serif; font-size: 8px; font-weight: 700; opacity: .4; }
+.mini-bar { display: flex; gap: 3px; align-items: center; }
+.mini-b { height: 3px; border-radius: 1.5px; }
+.mini-title { font-family: 'Unbounded', sans-serif; font-size: 9.5px; font-weight: 700; line-height: 1.3; }
+.mini-o .mini-n, .mini-o .mini-title { color: white; }
+.mini-w .mini-n { color: var(--g); }
+.mini-w .mini-title { color: var(--d); }
+.mini-d .mini-n, .mini-d .mini-title { color: white; }
+.mini-s .mini-n { color: var(--g); }
+.mini-s .mini-title { color: var(--d); }
+.mini-o .mini-b:nth-child(1) { background: rgba(255,255,255,.5); width: 24px; }
+.mini-o .mini-b:nth-child(2) { background: rgba(255,255,255,.3); width: 14px; }
+.mini-w .mini-b:nth-child(1) { background: var(--o); width: 24px; }
+.mini-w .mini-b:nth-child(2) { background: var(--o3); width: 14px; }
+.mini-d .mini-b:nth-child(1) { background: var(--o); width: 24px; }
+.mini-d .mini-b:nth-child(2) { background: #333; width: 14px; }
+.mini-s .mini-b:nth-child(1) { background: var(--o); width: 24px; }
+.mini-s .mini-b:nth-child(2) { background: var(--o3); width: 14px; }
+
+@media(max-width:680px){
+  #mode-deck { flex-direction: column; padding: 24px; gap: 32px; }
+  .hd, .tabs, #mode-grid { padding-left: 24px; padding-right: 24px; }
+  .tabs { padding-top: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hd">
+  <div class="hd-title">
+    <small>Альона Кавка</small>
+    Кар'єрна<br>Стратегія
+  </div>
+  <div class="hd-badge">30<span>карт</span></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab tab-active" id="t1" onclick="setMode('deck')">Витягнути карту</button>
+  <button class="tab tab-inactive" id="t2" onclick="setMode('grid')">Усі карти</button>
+</div>
+
+<!-- DECK MODE -->
+<div id="mode-deck">
+  <div class="stack-wrap">
+    <div class="stack" onclick="draw()" id="stackEl">
+      <div class="stack-layer"></div>
+      <div class="stack-layer"></div>
+      <div class="stack-layer">
+        <div class="stack-front">
+          <div class="stack-diamond"></div>
+          <div class="stack-logo"><b>АК</b><small>Кар'єрна стратегія</small></div>
+          <div class="stack-cta">натисни · витягни</div>
+        </div>
+      </div>
+    </div>
+    <div class="stack-count" id="cnt">30 карт</div>
+    <div class="stack-hint" id="hint">Натисни на колоду</div>
+  </div>
+
+  <div class="card-area">
+    <div class="card-label" id="clabel">← Витягни свою карту</div>
+    <div class="card-wrap" id="cbox"></div>
+    <div class="controls" id="ctrls" style="display:none">
+      <button class="btn btn-p" onclick="draw()">Наступна →</button>
+      <button class="btn btn-s" onclick="shuffle()">Перемішати</button>
+      <button class="btn btn-o" onclick="reset()">Спочатку</button>
+    </div>
+  </div>
+</div>
+
+<!-- GRID MODE -->
+<div id="mode-grid">
+  <div class="grid-filters" id="gfilters"></div>
+  <div class="cards-grid" id="cgrid"></div>
+</div>
+
+<script>
+// ── DATA ──
+// bg: orange | white | dark | stone
+// type: визначає графічний елемент (без емодзі)
+const CARDS = [
+// СТРАТЕГІЯ
+{n:1, cat:'Стратегія', bg:'orange',
+ title:'Горизонт лідера',
+ sub:'Кар\'єрна стратегія · рівень 1',
+ body:'Стратегія починається не з резюме, а з образу: хто ти за 5 років? Яка роль, яка компанія, який вплив? Чітке бачення горизонту дозволяє приймати рішення сьогодні, а не реагувати на обставини.',
+ q:'Опишіть свою ідеальну позицію через 5 років — не посаду, а вплив і середовище.'},
+
+{n:2, cat:'Стратегія', bg:'white',
+ title:'Ваш унікальний профіль',
+ sub:'Конкурентна перевага',
+ body:'На ринку топ-менеджерів виграє не той, хто «кращий», а той, хто відрізняється. Ваш профіль — це перетин досвіду, стилю управління та результатів. Ця комбінація є у вас одна.',
+ q:'Що є у вас, чого немає у 95% кандидатів на вашому рівні?'},
+
+{n:3, cat:'Стратегія', bg:'dark',
+ title:'Де ви створюєте цінність',
+ sub:'Value proposition',
+ body:'Компанії наймають не людей — вони наймають рішення проблем. Знайдіть типи завдань, де ваш вплив максимальний. Саме там — ваша стратегічна зона.',
+ q:'За які результати вас запам\'ятають на кожному місці роботи?'},
+
+{n:4, cat:'Стратегія', bg:'stone',
+ title:'Ціль і напрямок',
+ sub:'Орієнтири руху',
+ body:'Ціль — конкретна і може зникнути. Напрямок — стійкий і не залежить від обставин. Лідери, що мають лише цілі, зупиняються, коли ціль недосяжна. Ті, що мають напрямок, — знаходять новий шлях.',
+ q:'Якщо завтра ваша ціль зникне — куди ви рушите далі?'},
+
+{n:5, cat:'Стратегія', bg:'orange',
+ title:'Ринок вас не чекає',
+ sub:'Проактивна позиція',
+ body:'Ринок праці для топів — не оголошення на сайтах. 70% позицій закриваються через мережу. Ваша стратегія має бути активною: ви будуєте присутність, поки ще не шукаєте роботу.',
+ q:'Чи знає ринок про вас більше, ніж ваш поточний роботодавець?'},
+
+{n:6, cat:'Стратегія', bg:'white',
+ title:'Рівень C-suite',
+ sub:'Мислення вищого рівня',
+ body:'Перехід до C-рівня — це не про компетенції. Це про зміну мислення: від управління функцією до управління системою. Топ-менеджер бачить організацію як живий механізм, де кожне рішення має наслідки.',
+ q:'Яке рішення ви приймаєте сьогодні, думаючи як CEO, а не як функціональний керівник?'},
+
+// ПОЗИЦІЮВАННЯ
+{n:7, cat:'Позиціювання', bg:'dark',
+ title:'Ваш кар\'єрний наратив',
+ sub:'Storytelling лідера',
+ body:'Кар\'єрна стратегія потребує наративу — зв\'язної історії, де кожен крок логічний і підсилює наступний. Якщо ви не керуєте своїм наративом, його придумає хтось інший.',
+ q:'Розкажіть свою кар\'єру як один абзац. Чи звучить вона переконливо?'},
+
+{n:8, cat:'Позиціювання', bg:'stone',
+ title:'Репутація — ваш актив',
+ sub:'Довгострокова цінність',
+ body:'Репутація формується не на інтерв\'ю, а у щоденних взаємодіях: як ви приймаєте рішення, як реагуєте на кризи, як говорите про колег. Це ваш найдовговічніший актив.',
+ q:'Що кажуть про вас колеги, коли вас немає в кімнаті?'},
+
+{n:9, cat:'Позиціювання', bg:'orange',
+ title:'Видимість на ринку',
+ sub:'Присутність і вплив',
+ body:'Невидимий лідер — це втрачені можливості. Публічна присутність: LinkedIn, виступи, статті — не марнославство, а стратегічна інвестиція. Вас повинні знати до того, як з\'явиться вакансія.',
+ q:'Де і як ви демонструєте своє мислення публічно?'},
+
+{n:10, cat:'Позиціювання', bg:'white',
+ title:'Ніша vs Широкий профіль',
+ sub:'Стратегічний вибір',
+ body:'Бути сильним у всьому — значить бути посереднім у всьому. Топ-менеджери, що мають чітку нішу, отримують більш цільові пропозиції і більш цінні умови. Фокус — це конкурентна зброя.',
+ q:'У якій темі ви готові бути найвідомішим фахівцем в Україні?'},
+
+{n:11, cat:'Позиціювання', bg:'dark',
+ title:'LinkedIn як стратегічний інструмент',
+ sub:'Цифрова присутність',
+ body:'Профіль топ-менеджера — це не резюме, це живий документ вашого мислення. Кожен пост, кожен коментар формує образ лідера. Алгоритм винагороджує тих, хто думає вголос.',
+ q:'Що ваш LinkedIn говорить про вас тим, хто вас ще не знає?'},
+
+{n:12, cat:'Позиціювання', bg:'stone',
+ title:'Перше враження лідера',
+ sub:'Присутність і вплив',
+ body:'На рівні топ-менеджменту перше враження формується за секунди — як на зустрічі, так і в профілі, і в листі. Це не зовнішність. Це ясність думки, впевненість тону і точність слова.',
+ q:'Яке перше враження ви свідомо створюєте при знайомстві?'},
+
+// РІШЕННЯ
+{n:13, cat:'Рішення', bg:'orange',
+ title:'Залишитись або піти',
+ sub:'Стратегічний вибір',
+ body:'Залишатись з комфорту — повільна пастка. Іти зі страху — реактивне рішення. Стратегічне рішення базується на одному питанні: чи розвиває ця роль мій профіль у потрібному напрямку?',
+ q:'Ця роль відкриває двері у вашому горизонті — чи закриває їх?'},
+
+{n:14, cat:'Рішення', bg:'white',
+ title:'Прорахований ризик',
+ sub:'Управління невизначеністю',
+ body:'Безпечне рішення не є безризиковим. Ризик не рости, не розширювати мережу, не будувати видимість — накопичується роками і коштує дорожче, ніж один невдалий крок вперед.',
+ q:'Який ризик ви несете, нічого не змінюючи наступні 2 роки?'},
+
+{n:15, cat:'Рішення', bg:'dark',
+ title:'Інтуїція vs Аналітика',
+ sub:'Якість рішень лідера',
+ body:'Досвідчений лідер довіряє інтуїції не замість аналізу, а разом з ним. Інтуїція — це синтез тисяч спостережень. Коли дані говорять одне, а відчуття інше — варто зупинитись і послухати обидва.',
+ q:'Яке рішення ви відкладаєте, хоча вже знаєте відповідь?'},
+
+{n:16, cat:'Рішення', bg:'stone',
+ title:'Коли говорити "ні"',
+ sub:'Фокус і пріоритети',
+ body:'Кожне "так" — це "ні" чомусь іншому. Лідери, що не вміють відмовляти, розмивають свій фокус і свою цінність. Стратегічне "ні" — це захист найважливіших "так" у вашій кар\'єрі.',
+ q:'Від чого вам потрібно відмовитись, щоб зосередитись на головному?'},
+
+// ЗРОСТАННЯ
+{n:17, cat:'Зростання', bg:'orange',
+ title:'Наступний рівень',
+ sub:'Кар\'єрний стрибок',
+ body:'Перехід на наступний рівень потребує не більше зусиль — а іншого мислення. Те, що зробило вас успішним на поточному рівні, може стати обмеженням на наступному. Ріст вимагає переосмислення.',
+ q:'Яку звичку або підхід вам потрібно змінити для переходу на рівень вище?'},
+
+{n:18, cat:'Зростання', bg:'white',
+ title:'Розрив між рівнями',
+ sub:'Gap аналіз',
+ body:'Між вашим поточним рівнем і бажаним є конкретний розрив: навички, мережа, видимість, досвід. Не відчуття — а конкретні прогалини. Стратегія — це план їх закриття.',
+ q:'Що конкретно вам бракує для переходу на наступний рівень?'},
+
+{n:19, cat:'Зростання', bg:'dark',
+ title:'Зворотній зв\'язок як інструмент',
+ sub:'Розвиток лідера',
+ body:'На топ-рівні чесний зворотній зв\'язок стає рідкістю — люди бояться говорити правду. Лідери, що активно його шукають і приймають без захисту, ростуть значно швидше за тих, хто уникає.',
+ q:'Коли ви востаннє отримали чесний зворотній зв\'язок — і як відреагували?'},
+
+{n:20, cat:'Зростання', bg:'stone',
+ title:'Ментор і спарринг-партнер',
+ sub:'Прискорення розвитку',
+ body:'Найшвидший шлях до наступного рівня — вчитися у тих, хто вже там. Ментор скорочує ваш шлях на роки. Спарринг-партнер допомагає мислити ясніше. Обидва — стратегічна необхідність, не розкіш.',
+ q:'Хто у вашому оточенні вже є на рівні, до якого ви прагнете?'},
+
+{n:21, cat:'Зростання', bg:'orange',
+ title:'Інвестиція в розвиток',
+ sub:'ROI для лідера',
+ body:'Час і ресурси у власний розвиток — єдина інвестиція з гарантованою дохідністю. Компетенції, мережа, мислення — це те, що залишається з вами після будь-якої зміни ролі чи компанії.',
+ q:'Скільки відсотків свого часу ви інвестуєте у свій розвиток — не команди, а свій?'},
+
+// МЕРЕЖА
+{n:22, cat:'Мережа', bg:'white',
+ title:'Стратегічна мережа',
+ sub:'Капітал зв\'язків',
+ body:'Мережа топ-менеджера — це не кількість контактів, це якість і різноманіття. Потрібні люди з різних індустрій, рівнів і країн. Однорідна мережа дає однорідні можливості.',
+ q:'Хто у вашій мережі відрізняється від вас найбільше — і де є слабкі місця?'},
+
+{n:23, cat:'Мережа', bg:'dark',
+ title:'Нетворкінг без маски',
+ sub:'Автентичність у зв\'язках',
+ body:'Нетворкінг як "корисний обмін" відчувається одразу і відштовхує. Найцінніші зв\'язки виникають з щирого інтересу до людини і готовності давати до того, як просити.',
+ q:'Кому з вашої мережі ви можете допомогти прямо зараз — без жодної вигоди?'},
+
+{n:24, cat:'Мережа', bg:'stone',
+ title:'Рада директорів у вашому житті',
+ sub:'Екосистема підтримки',
+ body:'Найуспішніші лідери мають свою "раду директорів": ментор, коуч, довірений колега, критик, натхненник. Кожна роль унікальна. Ця екосистема — ваш стратегічний актив.',
+ q:'Хто грає кожну з цих ролей у вашому оточенні? Яка роль вакантна?'},
+
+// ЕНЕРГІЯ ЛІДЕРА
+{n:25, cat:'Енергія', bg:'orange',
+ title:'Ресурс як стратегія',
+ sub:'Управління собою',
+ body:'Лідер — це найважливіший ресурс компанії. Виснажений керівник приймає гірші рішення, формує гіршу культуру, показує гірші результати. Управління власним ресурсом — це не слабкість, це відповідальність.',
+ q:'Що конкретно відновлює вашу енергію — і як регулярно ви це робите?'},
+
+{n:26, cat:'Енергія', bg:'white',
+ title:'Де ви в потоці',
+ sub:'Зона максимального виконання',
+ body:'Є роботи, де ви відчуваєте потік: час зникає, результат приходить легко. Це ваша зона максимального виконання. Стратегія — будувати роль так, щоб більшість часу проводити саме там.',
+ q:'Які задачі приводять вас у стан потоку — і скільки часу ви там проводите?'},
+
+{n:27, cat:'Енергія', bg:'dark',
+ title:'Перша година',
+ sub:'Ранковий ритуал лідера',
+ body:'Перша година дня задає якість всього, що йде за нею. Лідери, які захищають свій ранок від зустрічей і нотифікацій, мають більш ясне мислення і кращу стратегічну фокусировку.',
+ q:'Як виглядає ваша перша година — і чи захищена вона від зовнішнього шуму?'},
+
+// ПІДСУМОК
+{n:28, cat:'Підсумок', bg:'stone',
+ title:'Ваша кар\'єрна гіпотеза',
+ sub:'Стратегічний фрейм',
+ body:'Стратегія без перевірки — це просто план. Кожна кар\'єрна гіпотеза потребує тестування: чи правильний напрямок? Чи ті люди? Чи та індустрія? Будьте готові коригувати — це не слабкість, це мудрість.',
+ q:'Яку кар\'єрну гіпотезу ви перевіряєте прямо зараз?'},
+
+{n:29, cat:'Підсумок', bg:'orange',
+ title:'Ваша наступна дія',
+ sub:'Від стратегії до руху',
+ body:'Найкраща стратегія — нічого не варта без виконання. Один конкретний крок сьогодні — цінніший за десять ідей завтра. Що зробить ваш стратегічний рух реальним?',
+ q:'Яку одну дію ви зробите цього тижня, яка наближає вас до вашого горизонту?'},
+
+{n:30, cat:'Підсумок', bg:'white',
+ title:'Ви вже на шляху',
+ sub:'Визнання прогресу',
+ body:'Кожен, хто задає собі стратегічні питання, вже попереду 80% ринку. Усвідомленість — це перший крок. Рефлексія — це не зупинка. Це прискорення з ясністю напрямку.',
+ q:'За який результат останніх 12 місяців ви можете себе чесно похвалити?'},
+];
+
+// Graphic elements per category (замість емодзі — геометрія)
+const GFX = {
+  'Стратегія':   { bars:[120,70,90], accent:'#FF7733' },
+  'Позиціювання':{ bars:[90,140,60], accent:'#FF5500' },
+  'Рішення':     { bars:[80,110,50], accent:'#FF9966' },
+  'Зростання':   { bars:[60,100,140], accent:'#FF6622' },
+  'Мережа':      { bars:[110,80,100], accent:'#FF7744' },
+  'Енергія':     { bars:[130,90,70], accent:'#FF4400' },
+  'Підсумок':    { bars:[140,110,130], accent:'#FF5500' },
+};
+
+const BGCLS = { orange:'c-orange', white:'c-white', dark:'c-dark', stone:'c-stone' };
+const MINICLS = { orange:'mini-o', white:'mini-w', dark:'mini-d', stone:'mini-s' };
+
+let deck=[], drawn=0;
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a; }
+function init(){ deck=shuffle([...CARDS]); drawn=0; updateCnt(); }
+function updateCnt(){
+  const r=deck.length-drawn;
+  document.getElementById('cnt').textContent=r+' карт';
+  const el=document.getElementById('stackEl');
+  el.style.opacity=r===0?'0.4':'1';
+  el.style.cursor=r===0?'not-allowed':'pointer';
+}
+function draw(){
+  if(drawn>=deck.length){ document.getElementById('clabel').textContent='Колоду вичерпано — перемішай!'; return; }
+  const c=deck[drawn++]; updateCnt();
+  document.getElementById('clabel').textContent='Карта '+drawn+' із 30';
+  document.getElementById('cbox').innerHTML=buildCard(c);
+  document.getElementById('ctrls').style.display='flex';
+  document.getElementById('hint').textContent='Натисни ще раз';
+}
+function reset(){ init(); document.getElementById('cbox').innerHTML=''; document.getElementById('ctrls').style.display='none'; document.getElementById('clabel').textContent='← Витягни свою карту'; document.getElementById('hint').textContent='Натисни на колоду'; }
+
+function buildCard(c){
+  const bg=BGCLS[c.bg];
+  const gfx=GFX[c.cat]||GFX['Стратегія'];
+  const isLight=(c.bg==='white'||c.bg==='stone');
+  const numColor=isLight?'rgba(0,0,0,0.07)':'rgba(255,255,255,0.06)';
+  const barCol=c.bg==='orange'?'rgba(255,255,255,0.25)':c.bg==='dark'?'rgba(255,85,0,0.5)':'rgba(255,85,0,0.3)';
+
+  return `<div class="card ${bg}">
+    <div class="card-top">
+      <span class="card-num">#${String(c.n).padStart(2,'0')}</span>
+      <span class="card-cat">${c.cat}</span>
+    </div>
+    <div class="card-graphic">
+      <div class="gfx-num">${c.n}</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-left:8px">
+        ${gfx.bars.map(w=>`<div class="gfx-bar" style="width:${w}px;background:${barCol}"></div>`).join('')}
+      </div>
+    </div>
+    <div class="card-title">${c.title}</div>
+    <div class="card-subtitle">${c.sub}</div>
+    <div class="card-divider"></div>
+    <div class="card-body">${c.body}</div>
+    <div class="card-q-block">
+      <div class="card-q-label">Запитай себе</div>
+      <div class="card-question">${c.q}</div>
+    </div>
+    <div class="card-footer">
+      <span class="card-brand">Кар'єрна Стратегія · Альона Кавка</span>
+      <span class="card-progress">${c.n}/30</span>
+    </div>
+  </div>`;
+}
+
+// GRID
+function renderGrid(filter){
+  const list=filter==='all'?CARDS:CARDS.filter(x=>x.cat===filter);
+  const gfxBarMini=`<div class="mini-b"></div><div class="mini-b"></div>`;
+  document.getElementById('cgrid').innerHTML=list.map(c=>{
+    const mc=MINICLS[c.bg];
+    const tc=c.bg==='orange'||c.bg==='dark'?'color:white':'color:var(--d)';
+    return `<div class="mini ${mc}" onclick="openCard(${c.n})">
+      <div class="mini-n" style="${tc}">#${String(c.n).padStart(2,'0')}</div>
+      <div class="mini-bar">${gfxBarMini}</div>
+      <div class="mini-title">${c.title}</div>
+    </div>`;
+  }).join('');
+}
+function renderFilters(){
+  const cats=['all',...new Set(CARDS.map(x=>x.cat))];
+  document.getElementById('gfilters').innerHTML=cats.map(cat=>`<button class="gf${cat==='all'?' on':''}" onclick="filterGrid('${cat}',this)">${cat==='all'?'Усі':cat}</button>`).join('');
+}
+function filterGrid(cat,btn){ document.querySelectorAll('.gf').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); renderGrid(cat); }
+function openCard(n){ setMode('deck'); const c=CARDS.find(x=>x.n===n); document.getElementById('cbox').innerHTML=buildCard(c); document.getElementById('clabel').textContent='Карта #'+String(n).padStart(2,'0'); document.getElementById('ctrls').style.display='flex'; window.scrollTo({top:0,behavior:'smooth'}); }
+
+function setMode(m){
+  const d=document.getElementById('mode-deck'), g=document.getElementById('mode-grid');
+  const t1=document.getElementById('t1'), t2=document.getElementById('t2');
+  if(m==='deck'){ d.style.display='flex'; g.style.display='none'; t1.className='tab tab-active'; t2.className='tab tab-inactive'; }
+  else { d.style.display='none'; g.style.display='block'; t1.className='tab tab-inactive'; t2.className='tab tab-active'; renderFilters(); renderGrid('all'); }
+}
+
+init();
+</script>
+</body>
+</html>
